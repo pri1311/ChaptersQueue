@@ -4,7 +4,7 @@ export const playerSlice = createSlice({
     name: "player",
     initialState: {
         value: {
-            url: "https://www.youtube.com/watch?v=LlvBzyy-558",
+            url: null,
             pip: false,
             playing: false,
             controls: true,
@@ -21,23 +21,26 @@ export const playerSlice = createSlice({
     },
     reducers: {
         'handlePlayPause': (state, _) => {
-            state.playing = !state.playing;
+            state.value.playing = !state.playing;
         },
         'handleStop': (state, _) => {
-            state.playing = false;
+            state.value.playing = false;
         },
         'handlePause': (state, _) => {
-            state.playing = false;
+            state.value.playing = false;
         },
         'handlePlay': (state, _) => {
-            state.playing = true;
+            state.value.playing = true;
         },
         'handleSeekChange': (state, action) => {
-            state.played = parseFloat(action.payload);
+            state.value.played = parseFloat(action.payload);
         },
+        'setURL': (state, action) => {
+            state.value.url = action.payload;
+        }
     }
 });
 
-export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange} = playerSlice.actions;
+export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange, setURL} = playerSlice.actions;
 
 export default playerSlice.reducer;
