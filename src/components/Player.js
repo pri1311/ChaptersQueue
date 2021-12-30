@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange} from '../features/player';
@@ -7,13 +7,19 @@ import { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange}
 
 
 function Player() {
-    var ref = useRef(null);
+    var ref = useRef(false);
+    const [isMounted, setisMounted] = useState(false);
 
     const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip, playAt } = useSelector((state) => state.player.value)
 
     var handleSeek = () =>{
         ref.seekTo(playAt);
     }
+
+    useEffect(() => {
+        if (isMounted) handleSeek();
+        
+    }, [playAt])
 
     return (
         <div>
@@ -35,7 +41,11 @@ function Player() {
                 playbackRate={playbackRate}
                 volume={volume}
                 muted={muted}
-                onReady={() => console.log('onReady')}
+                onReady={() => 
+                    {console.log('onReady');
+                    setisMounted(true);
+                }
+                }
                 onStart={() => console.log('onStart')}
                 onPlay={handlePlay}
                 onPause={handlePause}

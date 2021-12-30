@@ -16,7 +16,8 @@ export const playerSlice = createSlice({
             duration: 0,
             playbackRate: 1.0,
             loop: false,
-            playAt: 153,
+            playAt: 0,
+            seekFunction: null
         }
     },
     reducers: {
@@ -33,14 +34,17 @@ export const playerSlice = createSlice({
             state.value.playing = true;
         },
         'handleSeekChange': (state, action) => {
-            state.value.played = parseFloat(action.payload);
+            state.value.playAt = parseFloat(action.payload);
         },
         'setURL': (state, action) => {
             state.value.url = action.payload;
+        },
+        'setSeekFunction': (state, action) => {
+            state.value.seekFunction = action.payload;
         }
     }
 });
 
-export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange, setURL} = playerSlice.actions;
+export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange, setURL, setSeekFunction} = playerSlice.actions;
 
 export default playerSlice.reducer;

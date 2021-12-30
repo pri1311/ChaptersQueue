@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleSeekChange } from '../features/player';
 
 
 
@@ -8,6 +9,8 @@ function ChapterList() {
     var key = process.env.REACT_APP_YOUTUBE_API_KEY;
     var baseURL = 'https://www.googleapis.com/youtube/v3/videos';
     var { url } = useSelector((state) => state.player.value);
+    const [chapters, setchapters] = useState([])
+    const dispatch = useDispatch();
 
     function getVideoId(url) {
         let regex = /https\:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})/;
@@ -26,7 +29,25 @@ function ChapterList() {
         },
         })
         .then((result) => {
-            console.log(parseDescription(result.data.items[0].snippet.description));
+            const data = parseDescription(result.data.items[0].snippet.description);
+            console.log(data);
+            var list = [];
+            for (var i in data) {
+                var time = (data[i][0]).split(":");
+                var seconds = 0;
+                if (time.length === 2) {
+                    seconds = parseInt(time[0]) * 60 + parseInt(time[1]);
+                }
+                else {
+                    seconds = parseInt(time[0])* 360 + parseInt(time[1])*60 + parseInt(time[2]);
+                }
+                
+                list.push(<button key={i} value={seconds} onClick={(e) => {
+                    console.log(e.target.value);
+                    dispatch(handleSeekChange(parseFloat(e.target.value)));                    
+                }} >{data[i][1]}</button>);
+            }
+            setchapters(list);
         })
         .catch((err)=> {console.log(err);})
     }
@@ -40,7 +61,7 @@ function ChapterList() {
             var line = (file[l]).trim()
             var result = "";
             var chapter = "";
-            console.log(line);
+    
             result = line.match(/\(?(\d+[:]\d+[:]\d+)\)?/)
 
             if (result === null) {
@@ -60,7 +81,7 @@ function ChapterList() {
 
     return (
         <div>
-            
+            {chapters}
         </div>
     )
 }

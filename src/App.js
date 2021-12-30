@@ -1,6 +1,6 @@
-import Player from './components/Player';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LinkInput from './components/LinkInput';
+import Course from './pages/home/Course';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route path = "/" element = { <LinkInput/> } />
-          <Route path = "/player" element = { <Player/> } />
+          <Route path = "/player" element = { <Course/> } />
         </Routes>
       </Router>
     </div>
