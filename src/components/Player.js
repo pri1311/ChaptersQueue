@@ -54,7 +54,6 @@ function Player() {
                 onSeek={e => console.log('onSeek', e)}
                 onError={e => console.log('onError', e)}
             />
-            <button onClick={handleSeek}>click me</button>
         </div>
     )
 }
