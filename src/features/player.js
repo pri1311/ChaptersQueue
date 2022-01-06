@@ -17,7 +17,7 @@ export const playerSlice = createSlice({
             playbackRate: 1.0,
             loop: false,
             playAt: 0,
-            seekFunction: null
+            chapters: null,
         }
     },
     reducers: {
@@ -39,12 +39,14 @@ export const playerSlice = createSlice({
         'setURL': (state, action) => {
             state.value.url = action.payload;
         },
-        'setSeekFunction': (state, action) => {
-            state.value.seekFunction = action.payload;
+        'setChapters': (state, action) => {
+            console.log(action.payload);
+            state.value.chapters = action.payload;
+            console.log(state.value);
         }
     }
 });
 
-export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange, setURL, setSeekFunction} = playerSlice.actions;
+export const { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange, setURL, setChapters} = playerSlice.actions;
 
 export default playerSlice.reducer;

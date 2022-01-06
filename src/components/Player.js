@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { handlePlayPause, handleStop, handlePause, handlePlay, handleSeekChange} from '../features/player';
+import { handlePause, handlePlay} from '../features/player';
 
 
 
 function Player() {
     var ref = useRef(false);
     const [isMounted, setisMounted] = useState(false);
+    const dispatch = useDispatch();
 
     const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip, playAt } = useSelector((state) => state.player.value)
 
     var handleSeek = () =>{
         ref.seekTo(playAt);
+        dispatch(handlePlay());
     }
 
     useEffect(() => {
