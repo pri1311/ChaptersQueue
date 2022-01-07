@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { setChapters, setURL, handleSeekChange } from '../features/player';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 
 
@@ -12,6 +12,7 @@ function LinkInput() {
     const dispatch = useDispatch();
     var key = process.env.REACT_APP_YOUTUBE_API_KEY;
     var baseURL = 'https://www.googleapis.com/youtube/v3/videos';
+    const { uid, username } = useSelector((state)=>state.user.value);
     
     function getVideoId(url) {
         let regex = /https\:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})/;
@@ -89,6 +90,7 @@ function LinkInput() {
     return (
         <div>
             <form>
+                <h1>Welcome {username} </h1>
                 <input ref={inputRef} type="text" name="url"></input>
                 <button onClick={handleButtonClick}>Proceed</button>
             </form>

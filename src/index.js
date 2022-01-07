@@ -5,10 +5,12 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from "@reduxjs/toolkit";
 import playerReducer from './features/player';
+import userReducer from './features/user';
 
 const store = configureStore({
   reducer: {
-    player: playerReducer
+    player: playerReducer,
+    user: userReducer
   }
 });
 

@@ -2,12 +2,15 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../features/firebase-config';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { setUserDetails } from '../../features/user';
+import { useDispatch } from 'react-redux';
 
 
 function Login() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function handleLogin() {
         const authentication = getAuth();
@@ -18,6 +21,7 @@ function Login() {
         signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
             console.log(response)
+            dispatch(setUserDetails({uid: response.user.uid, email: response.user.email, username: "pri1311"}));
           navigate('/')
           sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
         })
