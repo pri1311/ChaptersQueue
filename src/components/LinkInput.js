@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
-import { setChapters, setURL, handleSeekChange } from '../features/player';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { useRef, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {collection, addDoc, Timestamp, setDoc, doc, updateDoc, arrayUnion} from 'firebase/firestore';
+import { setChapters, setURL, handleSeekChange } from '../features/player';
+import { db } from '../features/firebase-config';
 
 
 
@@ -12,7 +14,9 @@ function LinkInput() {
     const dispatch = useDispatch();
     var key = process.env.REACT_APP_YOUTUBE_API_KEY;
     var baseURL = 'https://www.googleapis.com/youtube/v3/videos';
-    const { uid, username } = useSelector((state)=>state.user.value);
+    const { uid, name } = useSelector((state)=>state.user.value);
+    const CourseData = useSelector((state)=>state.player.value);
+    const [chapters, setchapters] = useState(null)
     
     function getVideoId(url) {
         let regex = /https\:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})/;
@@ -21,7 +25,7 @@ function LinkInput() {
         return id;
     }
 
-    function loadDescription() {
+    async function loadDescription() {
         var url = inputRef.current.value;
         let videoID = getVideoId(url);
         axios.get(baseURL, {
@@ -35,6 +39,7 @@ function LinkInput() {
             const data = parseDescription(result.data.items[0].snippet.description);
             console.log(data);
             var list = [];
+            var cplist = {};
             for (var i in data) {
                 var time = (data[i][0]).split(":");
                 var seconds = 0;
@@ -49,7 +54,9 @@ function LinkInput() {
                     console.log(e.target.value);
                     dispatch(handleSeekChange(parseFloat(e.target.value)));                    
                 }} >{data[i][1]}</button>);
+                cplist[seconds] = data[i][1];
             }
+            setchapters(cplist);
             dispatch(setChapters(list));
             
         })
@@ -81,16 +88,32 @@ function LinkInput() {
     }
 
 
-    const handleButtonClick = async () => {
+    const handleButtonClick = async (e) => {
+        e.preventDefault();
         dispatch(setURL(inputRef.current.value));
         await loadDescription();
         console.log(inputRef.current.value);
-        navigate('/player');
     }
+    
+    useEffect(() => {
+        if (chapters!= null){
+            
+            async function sendData(){
+                await updateDoc(doc(db, 'users', uid), {courses: arrayUnion({chapters: chapters, url: inputRef.current.value})});
+                console.log("hello world");
+                console.log(chapters);
+                navigate('/player');
+                
+            }
+            sendData();
+        }
+            
+    }, [chapters])
+
     return (
         <div>
             <form>
-                <h1>Welcome {username} </h1>
+                <h1>Welcome {name} </h1>
                 <input ref={inputRef} type="text" name="url"></input>
                 <button onClick={handleButtonClick}>Proceed</button>
             </form>

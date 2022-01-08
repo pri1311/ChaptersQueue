@@ -5,7 +5,7 @@ export const userSlice = createSlice({
     initialState: {
         value: {
             uid: null,
-            username: null,
+            name: null,
             email: null,
         }
     },
@@ -17,10 +17,10 @@ export const userSlice = createSlice({
             state.value.email = action.payload;
         },
         'setUsername': (state, action) => {
-            state.value.username = action.payload;
+            state.value.name = action.payload;
         },
         'setUserDetails': (state, action) => {
-            state.value = action.payload;
+            state.value = {...state.value, ...action.payload};
         }
     }
 });

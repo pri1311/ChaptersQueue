@@ -4,7 +4,6 @@ import ReactPlayer from 'react-player';
 import { handlePause, handlePlay} from '../features/player';
 
 
-
 function Player() {
     var ref = useRef(false);
     const [isMounted, setisMounted] = useState(false);

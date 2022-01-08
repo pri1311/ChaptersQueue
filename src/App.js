@@ -3,6 +3,7 @@ import LinkInput from './components/LinkInput';
 import Login from './pages/auth/Login';
 import Course from './pages/home/Course';
 import { app } from './features/firebase-config';
+import Register from './pages/auth/Register';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path = "/" element = { <LinkInput/> } />
           <Route path = "/login" element = { <Login/> } />
+          <Route path = "/register" element = { <Register/> } />
           <Route path = "/player" element = { <Course/> } />
         </Routes>
       </Router>

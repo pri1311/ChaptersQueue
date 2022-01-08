@@ -21,7 +21,7 @@ function Login() {
         signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
             console.log(response)
-            dispatch(setUserDetails({uid: response.user.uid, email: response.user.email, username: "pri1311"}));
+            dispatch(setUserDetails({uid: response.user.uid, email: response.user.email}));
           navigate('/')
           sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
         })
