@@ -38,7 +38,7 @@ function LinkInput() {
         .then((result) => {
             const data = parseDescription(result.data.items[0].snippet.description);
             console.log(data);
-            var list = [];
+            
             var cplist = {};
             for (var i in data) {
                 var time = (data[i][0]).split(":");
@@ -47,17 +47,25 @@ function LinkInput() {
                     seconds = parseInt(time[0]) * 60 + parseInt(time[1]);
                 }
                 else {
-                    seconds = parseInt(time[0])* 360 + parseInt(time[1])*60 + parseInt(time[2]);
+                    seconds = parseInt(time[0])* 3600 + parseInt(time[1])*60 + parseInt(time[2]);
                 }
                 
-                list.push(<button key={i} value={seconds} onClick={(e) => {
-                    console.log(e.target.value);
-                    dispatch(handleSeekChange(parseFloat(e.target.value)));                    
-                }} >{data[i][1]}</button>);
-                cplist[seconds] = data[i][1];
+                cplist[i] = {
+                    time: seconds,
+                    title: data[i][1],
+                    played: false,
+                };
             }
+
+            const numChapters = Object.keys(cplist).length;
+
+            for (var j = 1; j < numChapters; j++) {
+                cplist[j - 1]['end'] = cplist[j]['time'];
+            }
+
+            console.log(numChapters);
             setchapters(cplist);
-            dispatch(setChapters(list));
+            dispatch(setChapters(cplist));
             
         })
         .catch((err)=> {console.log(err);})
@@ -97,9 +105,11 @@ function LinkInput() {
     
     useEffect(() => {
         if (chapters!= null){
+            var url = inputRef.current.value;
+            let videoID = getVideoId(url);
             
             async function sendData(){
-                await updateDoc(doc(db, 'users', uid), {courses: arrayUnion({chapters: chapters, url: inputRef.current.value})});
+                await updateDoc(doc(db, 'users', uid), {courses: arrayUnion({videoID: videoID, chapters: chapters})});
                 console.log("hello world");
                 console.log(chapters);
                 navigate('/player');

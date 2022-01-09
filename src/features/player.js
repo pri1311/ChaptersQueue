@@ -18,6 +18,8 @@ export const playerSlice = createSlice({
             loop: false,
             playAt: 0,
             chapters: null,
+            numChapters: 0,
+            index: 0
         }
     },
     reducers: {
@@ -34,7 +36,8 @@ export const playerSlice = createSlice({
             state.value.playing = true;
         },
         'handleSeekChange': (state, action) => {
-            state.value.playAt = parseFloat(action.payload);
+            state.value.playAt = parseFloat(action.payload.playAt);
+            state.value.index = parseFloat(action.payload.index);
         },
         'setURL': (state, action) => {
             state.value.url = action.payload;
@@ -42,6 +45,7 @@ export const playerSlice = createSlice({
         'setChapters': (state, action) => {
             console.log(action.payload);
             state.value.chapters = action.payload;
+            state.value.numChapters = (Object.keys(action.payload)).length;
             console.log(state.value);
         }
     }

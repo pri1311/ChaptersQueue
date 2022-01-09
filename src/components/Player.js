@@ -7,10 +7,29 @@ import { handlePause, handlePlay} from '../features/player';
 function Player() {
     var ref = useRef(false);
     const [isMounted, setisMounted] = useState(false);
+    const [duration, setduration] = useState(0)
     const dispatch = useDispatch();
 
-    const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip, playAt } = useSelector((state) => state.player.value)
+    const { url, playing, controls, light, volume, muted, loop, played, loaded, playbackRate, pip, playAt, numChapters, index, chapters } = useSelector((state) => state.player.value)
 
+    const calEnd = (time) => {
+        return parseInt(time - ((time * 5) / 100));
+    }
+    
+    const handleDuration = (duration) => {
+        setduration(duration);
+    }
+
+    const handleProgress = (state) => {
+        var currChapter = chapters[index];
+        var endTime = currChapter['end'];
+        
+        if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
+            console.log("chapter done");
+            console.log(currChapter);
+        }
+    }
+    
     var handleSeek = () =>{
         ref.seekTo(playAt);
         dispatch(handlePlay());
@@ -21,8 +40,10 @@ function Player() {
         
     }, [playAt])
 
+    
     return (
         <div>
+            <p>{duration}</p>
             <ReactPlayer
                 ref={node => { 
                     if (node) {
@@ -52,6 +73,8 @@ function Player() {
                 onBuffer={() => console.log('onBuffer')}
                 onSeek={e => console.log('onSeek', e)}
                 onError={e => console.log('onError', e)}
+                onDuration={handleDuration}
+                onProgress={handleProgress}
             />
         </div>
     )
