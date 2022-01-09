@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateDoc, doc } from 'firebase/firestore';
 import ReactPlayer from 'react-player';
 import { handlePause, handlePlay} from '../features/player';
+import { db } from '../features/firebase-config';
 
 
 function Player() {
@@ -11,7 +13,15 @@ function Player() {
     const dispatch = useDispatch();
 
     const { url, playing, controls, light, volume, muted, loop, played, loaded, playbackRate, pip, playAt, numChapters, index, chapters } = useSelector((state) => state.player.value)
+    const { uid } = useSelector((state) => state.user.value);
 
+    function getVideoId(url) {
+        let regex = /https\:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})/;
+
+        const id = url.match(regex)[1]; 
+        return id;
+    }
+    
     const calEnd = (time) => {
         return parseInt(time - ((time * 5) / 100));
     }
@@ -20,14 +30,24 @@ function Player() {
         setduration(duration);
     }
 
-    const handleProgress = (state) => {
+    const handleProgress = async (state) => {
         var currChapter = chapters[index];
-        var endTime = currChapter['end'];
-        
-        if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
-            console.log("chapter done");
-            console.log(currChapter);
+        console.log(index);
+        if (currChapter !== null) {
+
+            var endTime = currChapter['end'];
+            var videoID = getVideoId(url);
+            
+            if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
+                await updateDoc(doc(db, 'users', uid), {
+                    [`courses.${videoID}.chapters.${index}.played`]: true
+                })
+                console.log("chapter done");
+                console.log(currChapter);
+            }
         }
+
+        console.log(parseInt(state.playedSeconds));
     }
     
     var handleSeek = () =>{

@@ -37,7 +37,7 @@ export const playerSlice = createSlice({
         },
         'handleSeekChange': (state, action) => {
             state.value.playAt = parseFloat(action.payload.playAt);
-            state.value.index = parseFloat(action.payload.index);
+            state.value.index = parseInt(action.payload.index);
         },
         'setURL': (state, action) => {
             state.value.url = action.payload;

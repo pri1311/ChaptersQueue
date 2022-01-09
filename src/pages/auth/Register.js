@@ -26,7 +26,7 @@ function Register() {
         .then(async (response) => {
             console.log(response)
             dispatch(setUserDetails({uid: response.user.uid, email: response.user.email, name: name}));
-            await setDoc(doc(db, 'users', response.user.uid), { name: name, email:email, chapters : []});
+            await setDoc(doc(db, 'users', response.user.uid), { name: name, email:email, chapters : {}});
             navigate('/')
             sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
         })

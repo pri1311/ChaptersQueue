@@ -13,9 +13,9 @@ function ChapterList() {
         var list = [];
         
         for (var i in chapters) {
-            list.push(<button key={i} value={chapters[i]['time']} onClick={(e) => {
+            list.push(<button key={i} value={i} onClick={(e) => {
                 console.log(e.target.value);
-                dispatch(handleSeekChange({playAt: parseFloat(e.target.value), index: e.target.key}));                    
+                dispatch(handleSeekChange({playAt: chapters[parseInt(e.target.value)]['time'], index: parseInt(e.target.value)}));                    
             }} >{chapters[i]['title']}</button>);
         }
 
