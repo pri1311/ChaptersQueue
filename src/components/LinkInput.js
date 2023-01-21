@@ -109,9 +109,9 @@ function LinkInput() {
             let videoID = getVideoId(url);
             
             async function sendData(){
-                await updateDoc(doc(db, 'users', uid), {[`courses.${videoID}`]: {videoID: videoID, chapters: chapters}});
                 console.log("hello world");
                 console.log(chapters);
+                // await updateDoc(doc(db, 'users', uid), {[`courses.${videoID}`]: {videoID: videoID, chapters: chapters}});
                 navigate('/player');
                 
             }
