@@ -1,0 +1,12 @@
+.coursepageWrapper {
+    overflow: hidden;
+}
+.chapterList {
+    height: 100vh;
+    overflow: scroll !important;
+    text-align: start;
+}
+.player {
+    height: 100vh;
+    overflow: hidden;
+}

@@ -37,13 +37,16 @@ function Player() {
 
             var endTime = currChapter['end'];
             var videoID = getVideoId(url);
+            console.log(parseInt(state.playedSeconds));
+            console.log(parseInt(endTime - 10));
             
             if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
+                console.log("chapter done");
+                console.log(currChapter);
                 await updateDoc(doc(db, 'users', uid), {
                     [`courses.${videoID}.chapters.${index}.played`]: true
                 })
-                console.log("chapter done");
-                console.log(currChapter);
+                
             }
         }
 
@@ -63,7 +66,6 @@ function Player() {
     
     return (
         <div>
-            <p>{duration}</p>
             <ReactPlayer
                 ref={node => { 
                     if (node) {
@@ -71,7 +73,7 @@ function Player() {
                     }
                 }}
                 className='react-player'
-                width='50%'
+                width='100%'
                 height='60vh'
                 url={url}
                 pip={pip}
