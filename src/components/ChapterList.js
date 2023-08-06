@@ -21,7 +21,15 @@ function ChapterList() {
     var list = [];
 
     for (var i in chapters) {
-      list.push(<ListItem key={i} id={i} title={chapters[i]["title"]} played={chapters[i]["played"]} playOnSeek={playOnSeek} />);
+      list.push(
+        <ListItem
+          key={i}
+          id={i}
+          title={chapters[i]["title"]}
+          played={chapters[i]["played"]}
+          playOnSeek={playOnSeek}
+        />
+      );
     }
 
     setchaptersList(list);

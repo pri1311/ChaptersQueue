@@ -133,7 +133,9 @@ function LinkInput() {
       async function sendData() {
         console.log("hello world");
         console.log(chapters);
-        // await updateDoc(doc(db, 'users', uid), {[`courses.${videoID}`]: {videoID: videoID, chapters: chapters}});
+        await updateDoc(doc(db, "users", uid), {
+          [`courses.${videoID}`]: { videoID: videoID, chapters: chapters },
+        });
         navigate("/player");
       }
       sendData();
@@ -144,7 +146,12 @@ function LinkInput() {
     <div>
       <form>
         <h1>Welcome {name} </h1>
-        <input ref={inputRef} type="text" name="url" value="https://www.youtube.com/watch?v=bqFjrhRrvy8"></input>
+        <input
+          ref={inputRef}
+          type="text"
+          name="url"
+          value="https://www.youtube.com/watch?v=bqFjrhRrvy8"
+        ></input>
         <button onClick={handleButtonClick}>Proceed</button>
       </form>
     </div>
