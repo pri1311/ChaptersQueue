@@ -10,7 +10,7 @@ function Course() {
       <Col xs lg="8" className={styles.player}>
         <Player />
       </Col>
-      <Col className={styles.chaptersList}>
+      <Col className={styles.chapterList}>
         <ChapterList />
       </Col>
     </Row>

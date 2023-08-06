@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleSeekChange } from "../features/player";
-import { Row } from "react-bootstrap";
 import ListItem from "./ListItem";
 
 function ChapterList() {
@@ -22,7 +21,7 @@ function ChapterList() {
     var list = [];
 
     for (var i in chapters) {
-      list.push(<ListItem id={i} title={chapters[i]["title"]} playOnSeek={playOnSeek} />);
+      list.push(<ListItem key={i} id={i} title={chapters[i]["title"]} played={chapters[i]["played"]} playOnSeek={playOnSeek} />);
     }
 
     setchaptersList(list);

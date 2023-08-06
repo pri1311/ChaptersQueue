@@ -1,12 +1,29 @@
 .coursepageWrapper {
-    overflow: hidden;
+  height: 80vh;
+  border: 0.5px solid grey;
+  border-radius: 5px;
+  padding: 4vh;
 }
+
 .chapterList {
-    height: 100vh;
-    overflow: scroll !important;
-    text-align: start;
+  height: 100%;
+  overflow-y: scroll;
+  text-align: start;
+  padding: 0;
 }
+
 .player {
-    height: 100vh;
-    overflow: hidden;
+  height: 80vh;
+  padding-right: 0 !important;
+}
+
+.title {
+    font-size: 2.5vh;
+    padding-top: 2vh;
+}
+
+.channel {
+    font-size: 1.75vh;
+    color: grey;
+    padding-top: 1.5vh;
 }

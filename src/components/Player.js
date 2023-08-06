@@ -2,8 +2,9 @@ import { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateDoc, doc } from 'firebase/firestore';
 import ReactPlayer from 'react-player';
-import { handlePause, handlePlay} from '../features/player';
+import { handlePause, handlePlay, setChapterDone} from '../features/player';
 import { db } from '../features/firebase-config';
+import styles from '../styles/course.module.css';
 
 
 function Player() {
@@ -13,6 +14,7 @@ function Player() {
     const dispatch = useDispatch();
 
     const { url, playing, controls, light, volume, muted, loop, played, loaded, playbackRate, pip, playAt, numChapters, index, chapters } = useSelector((state) => state.player.value)
+    const { title, channel } = useSelector((state) => state.player)
     const { uid } = useSelector((state) => state.user.value);
 
     function getVideoId(url) {
@@ -31,6 +33,7 @@ function Player() {
     }
 
     const handleProgress = async (state) => {
+        console.log(chapters);
         var currChapter = chapters[index];
         console.log(index);
         if (currChapter !== null) {
@@ -43,10 +46,12 @@ function Player() {
             if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
                 console.log("chapter done");
                 console.log(currChapter);
-                await updateDoc(doc(db, 'users', uid), {
-                    [`courses.${videoID}.chapters.${index}.played`]: true
-                })
-                
+                // await updateDoc(doc(db, 'users', uid), {
+                //     [`courses.${videoID}.chapters.${index}.played`]: true
+                // })
+
+                dispatch(setChapterDone(index));
+                // chapters[inde]
             }
         }
 
@@ -98,6 +103,8 @@ function Player() {
                 onDuration={handleDuration}
                 onProgress={handleProgress}
             />
+        <h5 className={styles.title}>{title}</h5>
+        <p className={styles.channel}>{channel}</p>
         </div>
     )
 }

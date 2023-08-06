@@ -1,3 +1,15 @@
 .button {
+    padding-left: 2vw;
     text-align: start;
+    background-color: white;
+    height: 7vh;
+    border: 0.5px solid grey;
+    font-size: 2vh;
+}
+
+.playIcon {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: black;
+    font-size: 2vh;
 }
