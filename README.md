@@ -35,7 +35,7 @@ Bring any YouTube video which has chapters and convert it into a course, track y
 
 ## Screenshots
 
-![Welcome](https://github.com/pri1311/ChaptersQueue/blob/master/screenshots/hoempage.png)
+![Welcome](https://github.com/pri1311/ChaptersQueue/blob/master/screenshots/homepage.png)
 ![Course](https://github.com/pri1311/ChaptersQueue/blob/master/screenshots/course.png)
 ![MyCourses](https://github.com/pri1311/ChaptersQueue/blob/master/screenshots/mycourses.png)
 ![Login](https://github.com/pri1311/ChaptersQueue/blob/master/screenshots/login.png)
