@@ -2,3 +2,7 @@
     background-color: white !important;
     height: 10vh;
 }
+
+.headername {
+    cursor: pointer;
+}

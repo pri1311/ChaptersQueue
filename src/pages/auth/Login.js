@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { app } from "../../features/firebase-config";
+import { app, db } from "../../features/firebase-config";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -24,7 +24,6 @@ function Login() {
     signInWithEmailAndPassword(authentication, email, password).then(
       async (response) => {
         console.log(response);
-        const db = getFirestore();
         const docRef = doc(db, "users", response.user.uid);
         const docSnap = await getDoc(docRef);
         console.log(docSnap.data());
@@ -33,6 +32,7 @@ function Login() {
             uid: response.user.uid,
             email: response.user.email,
             name: docSnap.data().name,
+            courses: Object.keys(docSnap.data().courses),
           })
         );
 

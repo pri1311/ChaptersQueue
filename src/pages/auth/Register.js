@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "../../features/firebase-config";
-import { collection, addDoc, Timestamp, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUserDetails } from "../../features/user";
 import { useDispatch } from "react-redux";
@@ -29,6 +29,7 @@ function Register() {
             uid: response.user.uid,
             email: response.user.email,
             name: name,
+            courses: [],
           })
         );
         await setDoc(doc(db, "users", response.user.uid), {

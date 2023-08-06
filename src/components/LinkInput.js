@@ -3,20 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  collection,
-  addDoc,
-  Timestamp,
-  setDoc,
   doc,
   updateDoc,
-  arrayUnion,
+  getDoc
 } from "firebase/firestore";
 import {
   setChapters,
   setURL,
-  handleSeekChange,
   setDetails,
 } from "../features/player";
+import { setCourses} from '../features/user';
 import { db } from "../features/firebase-config";
 
 function LinkInput() {
@@ -25,9 +21,12 @@ function LinkInput() {
   const dispatch = useDispatch();
   var key = process.env.REACT_APP_YOUTUBE_API_KEY;
   var baseURL = "https://www.googleapis.com/youtube/v3/videos";
-  const { uid, name } = useSelector((state) => state.user.value);
+  const { uid, name, courses } = useSelector((state) => state.user.value);
   const CourseData = useSelector((state) => state.player.value);
   const [chapters, setchapters] = useState(null);
+  const [title, setTitle] = useState("");
+  const [channel, setChannel] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
 
   function getVideoId(url) {
     let regex = /https\:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})/;
@@ -39,6 +38,25 @@ function LinkInput() {
   async function loadDescription() {
     var url = inputRef.current.value;
     let videoID = getVideoId(url);
+    console.log(courses);
+    if (courses.includes(videoID)) {
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.data();
+      console.log(data);
+      console.log(data.courses[videoID].chapters);
+      dispatch(setChapters(data.courses[videoID].chapters))
+      dispatch(
+        setDetails({
+          title: data.courses[videoID].title,
+          channel: data.courses[videoID].channel
+        })
+      );
+      console.log("already there!");
+      navigate('/player');
+      return;
+    }
+    dispatch(setCourses(videoID));
     axios
       .get(baseURL, {
         params: {
@@ -50,6 +68,10 @@ function LinkInput() {
       .then((result) => {
         console.log(result);
         const data = parseDescription(result.data.items[0].snippet.description);
+
+        setTitle(result.data.items[0].snippet.title);
+        setChannel(result.data.items[0].snippet.channelTitle);
+        setThumbnail(result.data.items[0].snippet.thumbnails.high.url);
 
         dispatch(
           setDetails({
@@ -134,7 +156,7 @@ function LinkInput() {
         console.log("hello world");
         console.log(chapters);
         await updateDoc(doc(db, "users", uid), {
-          [`courses.${videoID}`]: { videoID: videoID, chapters: chapters },
+          [`courses.${videoID}`]: { videoID: videoID, chapters: chapters, title: title, channel: channel, thumbnail: thumbnail },
         });
         navigate("/player");
       }

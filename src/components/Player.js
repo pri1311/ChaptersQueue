@@ -5,7 +5,6 @@ import ReactPlayer from "react-player";
 import { handlePause, handlePlay, setChapterDone } from "../features/player";
 import { db } from "../features/firebase-config";
 import styles from "../styles/course.module.css";
-import { getFirestore, getDoc } from "firebase/firestore";
 
 function Player() {
   var ref = useRef(false);
