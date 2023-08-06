@@ -13,9 +13,14 @@ function Header() {
             expand="lg"
             className={`bg-body-tertiary ${styles.header}`}
         >
-            <Navbar.Brand className={styles.headername} onClick={() => {
-                            navigate("/");
-                        }} >ChaptersQueue</Navbar.Brand>
+            <Navbar.Brand
+                className={styles.headername}
+                onClick={() => {
+                    navigate("/");
+                }}
+            >
+                ChaptersQueue
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
@@ -28,9 +33,7 @@ function Header() {
                     </Nav.Link>
                 </Nav>
                 <Nav>
-                    <Nav.Link eventKey={2}>
-                        {name}
-                    </Nav.Link>
+                    <Nav.Link eventKey={2}>{name}</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

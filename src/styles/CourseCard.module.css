@@ -17,3 +17,8 @@
     color: grey;
     padding-top: 1.5vh;
 }
+
+.grid {
+    display: flex;
+    flex-direction: row;
+}

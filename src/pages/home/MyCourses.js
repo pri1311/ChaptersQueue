@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { app, db } from '../../features/firebase-config';
+import { app, db } from "../../features/firebase-config";
 import CourseCard from "../../components/CourseCard";
 import { useSelector } from "react-redux";
 import { getDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/CourseCard.module.css";
 
 function MyCourses() {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ function MyCourses() {
     const { uid, name } = useSelector((state) => state.user.value);
     useEffect(() => {
         if (uid === null || uid === "") {
-            navigate('/login');
+            navigate("/login");
         }
         console.log("In My courses page");
         async function getChapters() {
@@ -20,8 +21,8 @@ function MyCourses() {
             const data = docSnap.data();
             console.log(docSnap.data());
             console.log(Object.keys(data.courses));
-            var courseList = []
-            Object.keys(data.courses).forEach(key => {
+            var courseList = [];
+            Object.keys(data.courses).forEach((key) => {
                 console.log(key);
                 console.log(data.courses[key]);
                 courseList.push(data.courses[key]);
@@ -32,8 +33,17 @@ function MyCourses() {
         getChapters();
     }, []);
 
-    
-    return <div>{courses.length > 0 && courses.map(course => <CourseCard course = {course} key={course.videoId}></CourseCard>)}</div>;
+    return (
+        <div className={styles.grid}>
+            {courses.length > 0 &&
+                courses.map((course) => (
+                    <CourseCard
+                        course={course}
+                        key={course.videoId}
+                    ></CourseCard>
+                ))}
+        </div>
+    );
 }
 
 export default MyCourses;
