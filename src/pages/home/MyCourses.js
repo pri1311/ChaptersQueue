@@ -3,12 +3,16 @@ import { app, db } from '../../features/firebase-config';
 import CourseCard from "../../components/CourseCard";
 import { useSelector } from "react-redux";
 import { getDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function MyCourses() {
-    
+    const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
     const { uid, name } = useSelector((state) => state.user.value);
     useEffect(() => {
+        if (uid === null || uid === "") {
+            navigate('/login');
+        }
         console.log("In My courses page");
         async function getChapters() {
             const docRef = doc(db, "users", uid);

@@ -8,6 +8,7 @@ import {
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { setUserDetails } from "../../features/user";
 import { useDispatch } from "react-redux";
+import styles from '../../styles/Auth.module.css'
 
 function Login() {
   const emailRef = useRef(null);
@@ -45,7 +46,7 @@ function Login() {
     );
   }
   return (
-    <div>
+    <div className={styles.auth}>
       <label for="email">Email</label>
       <input type="email" required={true} name="email" ref={emailRef}></input>
       <label for="password">Password</label>

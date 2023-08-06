@@ -25,6 +25,30 @@ export const playerSlice = createSlice({
     channel: "",
   },
   reducers: {
+    setInitialState: (state, _) => {
+      state = {
+        value: {
+          url: null,
+          pip: false,
+          playing: false,
+          controls: true,
+          light: false,
+          volume: 0.8,
+          muted: false,
+          played: 0,
+          loaded: 0,
+          duration: 0,
+          playbackRate: 1.0,
+          loop: false,
+          playAt: 0,
+          chapters: null,
+          numChapters: 0,
+          index: 0,
+        },
+        title: "",
+        channel: "",
+      };
+    },
     handlePlayPause: (state, _) => {
       state.value.playing = !state.playing;
     },
@@ -75,6 +99,7 @@ export const {
   setChapters,
   setDetails,
   setChapterDone,
+  setInitialState
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

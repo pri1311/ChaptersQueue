@@ -1,0 +1,19 @@
+.button {
+    border: none;
+    margin: 1.5vh;
+    background-color: rgb(168,221,225);
+    padding: 1vh 2.5vh;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: rgb(254,213,215);
+    transition: ease-in-out 0.5s;
+}
+
+
+.channel {
+    font-size: 1.75vh;
+    color: grey;
+    padding-top: 1.5vh;
+}

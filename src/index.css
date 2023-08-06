@@ -6,9 +6,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://www.creativefabrica.com/wp-content/uploads/2021/07/17/pastel-abstract-background-pattern-Graphics-14828950-1.jpg");
 }
 
 code {
   font-family: 'Poppins', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.bg-body-tertiary {
+  background-color: transparent;
 }

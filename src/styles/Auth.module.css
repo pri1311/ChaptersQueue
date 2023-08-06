@@ -1,0 +1,42 @@
+.auth {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.auth > label {
+    margin: 1vh;
+    text-align: start;
+}
+
+.auth > input {
+    margin-bottom: 1.5vh;
+    border: none;
+    padding: 1vh;
+    min-width: 20vw;
+    background-color: transparent;
+    border-bottom: 1px solid grey;
+}
+
+.auth > input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid grey;
+}
+
+.auth > button {
+    border: none;
+    margin: 1.5vh;
+    background-color: rgb(168,221,225);
+    padding: 1vh 2.5vh;
+    border-radius: 5px;
+}
+
+.auth > button:hover {
+    background-color: rgb(254,213,215);
+    transition: ease-in-out 0.5s;
+}

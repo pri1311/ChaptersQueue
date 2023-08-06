@@ -19,7 +19,7 @@ function ListItem({ id, title, playOnSeek, played }) {
         }}
       >
         {chapters[id]["played"] ? (
-          <FontAwesomeIcon icon={faCircleCheck} className={styles.playIcon} />
+          <FontAwesomeIcon icon={faCircleCheck} className={styles.doneIcon} />
         ) : (
           <FontAwesomeIcon icon={faPlay} className={styles.playIcon} />
         )}

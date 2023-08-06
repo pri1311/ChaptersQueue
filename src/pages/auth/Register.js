@@ -5,6 +5,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUserDetails } from "../../features/user";
 import { useDispatch } from "react-redux";
+import styles from '../../styles/Auth.module.css'
 
 function Register() {
   const nameRef = useRef(null);
@@ -46,7 +47,7 @@ function Register() {
     );
   }
   return (
-    <div>
+    <div className={styles.auth}>
       <label for="name">Name</label>
       <input type="text" required={true} name="name" ref={nameRef}></input>
       <label for="email">Email</label>

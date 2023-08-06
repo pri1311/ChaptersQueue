@@ -11,9 +11,11 @@ import {
   setChapters,
   setURL,
   setDetails,
+  setInitialState
 } from "../features/player";
 import { setCourses} from '../features/user';
 import { db } from "../features/firebase-config";
+import styles from '../styles/Welcome.module.css'
 
 function LinkInput() {
   let navigate = useNavigate();
@@ -142,6 +144,7 @@ function LinkInput() {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    dispatch(setInitialState());
     dispatch(setURL(inputRef.current.value));
     await loadDescription();
     console.log(inputRef.current.value);
@@ -164,15 +167,20 @@ function LinkInput() {
     }
   }, [chapters]);
 
+  useEffect(() => {
+    if (uid === null || uid === "") {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <div>
-      <form>
+      <form className={styles.linkinput}>
         <h1>Welcome {name} </h1>
         <input
           ref={inputRef}
           type="text"
           name="url"
-          value="https://www.youtube.com/watch?v=bqFjrhRrvy8"
         ></input>
         <button onClick={handleButtonClick}>Proceed</button>
       </form>
