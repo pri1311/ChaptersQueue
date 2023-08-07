@@ -36,12 +36,10 @@ function LinkInput() {
     async function loadDescription() {
         var url = inputRef.current.value;
         let videoID = getVideoId(url);
-        console.log(courses);
         if (courses.includes(videoID)) {
             const docRef = doc(db, "users", uid);
             const docSnap = await getDoc(docRef);
             const data = docSnap.data();
-            console.log(data);
             dispatch(setChapters(data.courses[videoID].chapters));
             dispatch(
                 setDetails({
@@ -49,7 +47,6 @@ function LinkInput() {
                     channel: data.courses[videoID].channel,
                 })
             );
-            console.log("already there!");
             navigate("/player");
             return;
         }
@@ -63,7 +60,6 @@ function LinkInput() {
                 },
             })
             .then((result) => {
-                console.log(result);
                 const data = parseDescription(
                     result.data.items[0].snippet.description
                 );
@@ -78,7 +74,6 @@ function LinkInput() {
                         channel: result.data.items[0].snippet.channelTitle,
                     })
                 );
-                console.log(data);
 
                 var cplist = {};
                 for (var i in data) {
@@ -106,7 +101,6 @@ function LinkInput() {
                     cplist[j - 1]["end"] = cplist[j]["time"];
                 }
 
-                console.log(numChapters);
                 setchapters(cplist);
                 dispatch(setChapters(cplist));
             })
@@ -144,7 +138,6 @@ function LinkInput() {
         dispatch(setInitialState());
         dispatch(setURL(inputRef.current.value));
         await loadDescription();
-        console.log(inputRef.current.value);
     };
 
     useEffect(() => {
@@ -153,8 +146,6 @@ function LinkInput() {
             let videoID = getVideoId(url);
 
             async function sendData() {
-                console.log("hello world");
-                console.log(chapters);
                 await updateDoc(doc(db, "users", uid), {
                     [`courses.${videoID}`]: {
                         videoID: videoID,

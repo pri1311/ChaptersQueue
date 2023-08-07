@@ -49,18 +49,12 @@ function Player() {
     };
 
     const handleProgress = async (state) => {
-        console.log(chapters);
         var currChapter = chapters[index];
-        console.log(index);
         if (currChapter !== null) {
             var endTime = currChapter["end"];
             var videoID = getVideoId(url);
-            console.log(parseInt(state.playedSeconds));
-            console.log(parseInt(endTime - 10));
 
             if (parseInt(state.playedSeconds) === parseInt(endTime - 10)) {
-                console.log("chapter done");
-                console.log(currChapter);
                 await updateDoc(doc(db, "users", uid), {
                     [`courses.${videoID}.chapters.${index}.played`]: true,
                 });
@@ -69,7 +63,6 @@ function Player() {
             }
         }
 
-        console.log(parseInt(state.playedSeconds));
     };
 
     var handleSeek = () => {
@@ -102,7 +95,6 @@ function Player() {
                 volume={volume}
                 muted={muted}
                 onReady={() => {
-                    console.log("onReady");
                     setisMounted(true);
                 }}
                 onStart={() => console.log("onStart")}

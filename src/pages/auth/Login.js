@@ -17,20 +17,19 @@ function Login() {
         const authentication = getAuth();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        console.log(authentication);
 
         signInWithEmailAndPassword(authentication, email, password).then(
             async (response) => {
-                console.log(response);
                 const docRef = doc(db, "users", response.user.uid);
                 const docSnap = await getDoc(docRef);
-                console.log(docSnap.data());
+                const courses = docSnap.data().courses;
+                
                 dispatch(
                     setUserDetails({
                         uid: response.user.uid,
                         email: response.user.email,
                         name: docSnap.data().name,
-                        courses: Object.keys(docSnap.data().courses),
+                        courses: courses != null? Object.keys(docSnap.data().courses): [],
                     })
                 );
 

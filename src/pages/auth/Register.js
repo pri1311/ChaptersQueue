@@ -20,11 +20,9 @@ function Register() {
         const name = nameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        console.log(authentication);
 
         createUserWithEmailAndPassword(authentication, email, password).then(
             async (response) => {
-                console.log(response);
                 dispatch(
                     setUserDetails({
                         uid: response.user.uid,
