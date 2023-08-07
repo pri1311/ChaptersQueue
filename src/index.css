@@ -7,11 +7,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("https://www.creativefabrica.com/wp-content/uploads/2021/07/17/pastel-abstract-background-pattern-Graphics-14828950-1.jpg");
-  background-position: 'center';
-  background-size: 'cover';
-  background-repeat: 'no-repeat';
-  width: '100vw';
-  height: '100vh';
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
 }
 
 code {
