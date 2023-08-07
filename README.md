@@ -117,3 +117,4 @@ TODOs
 - [ ] Option to load Playlists too
 - [ ] Create Custom Chapters (Maybe?)
 - [ ] Error Handling for API calls
+- [ ] Logout/Remember Login
