@@ -4,6 +4,7 @@
     background-color: rgb(168,221,225);
     padding: 1vh 2.5vh;
     border-radius: 5px;
+    color: black;
 }
 
 .button:hover {
