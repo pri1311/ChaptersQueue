@@ -2,6 +2,8 @@
 <br />
 <div align="center">
   <h2 align="center">ChaptersQueue</h2>
+  <h4>Visit the website - <a src="https://chapters-queue.vercel.app/register">chapters-queue.vercel.app</a></h4>
+
 </div>
 
 
