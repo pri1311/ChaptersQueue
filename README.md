@@ -3,7 +3,7 @@
 <div align="center">
   <h2 align="center">ChaptersQueue</h2>
   <h4>Visit the website - <a href="https://chapters-queue.vercel.app/register">chapters-queue.vercel.app</a></h4>
-
+  <a href="https://www.producthunt.com/posts/chaptersqueue?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chaptersqueue" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=410933&theme=dark" alt="ChaptersQueue - Turn&#0032;YT&#0032;videos&#0032;with&#0032;chapters&#0032;into&#0032;courses&#0032;&#0038;&#0032;track&#0032;progress | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </div>
 
 
